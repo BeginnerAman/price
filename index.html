@@ -158,6 +158,14 @@
     button.warning:hover {
         background-color: #e65100;
     }
+    
+    button.success {
+        background-color: var(--success);
+    }
+
+    button.success:hover {
+        background-color: #2e7d32;
+    }
 
     .buttons {
         display: flex;
@@ -439,6 +447,14 @@
         opacity: 1;
         transform: translateY(0);
     }
+    
+    .share-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -498,6 +514,20 @@
             document.getElementById('defaultPrice').value = savedPrice;
             defaultPrice = parseFloat(savedPrice);
         }
+        
+        // Set min/max years for date inputs
+        setupDateInputRestrictions();
+    }
+    
+    // Set up date input restrictions to ensure 4-digit years and reasonable date ranges
+    function setupDateInputRestrictions() {
+        const currentYear = new Date().getFullYear();
+        const minDate = `${currentYear - 1}-01-01`;
+        const maxDate = `${currentYear + 1}-12-31`;
+        
+        // This will be applied to each producer's date inputs when created
+        window.minDate = minDate;
+        window.maxDate = maxDate;
     }
 
     // Set default dates for all date inputs
@@ -543,12 +573,14 @@
             <div class="input-row">
                 <div class="input-group">
                     <label for="quantity${producerId}">दूध की मात्रा (लीटर):</label>
-                    <input type="number" id="quantity${producerId}" class="quantity" min="0" step="0.01" placeholder="दूध की मात्रा" required />
+                    <input type="number" id="quantity${producerId}" class="quantity" min="0" step="0.01" placeholder="दूध की मात्रा" required 
+                           oninput="validateNumberInput(this)" />
                 </div>
                 
                 <div class="input-group">
                     <label for="price${producerId}">कीमत प्रति लीटर (₹):</label>
-                    <input type="number" id="price${producerId}" class="price" min="0" step="0.01" placeholder="दूध की कीमत" value="${defaultPrice || ''}" required />
+                    <input type="number" id="price${producerId}" class="price" min="0" step="0.01" placeholder="दूध की कीमत" value="${defaultPrice || ''}" required 
+                           oninput="validateNumberInput(this)" />
                 </div>
             </div>
             
@@ -565,7 +597,8 @@
             <div class="input-row" id="daysInput-${producerId}">
                 <div class="input-group">
                     <label for="numDays${producerId}">दिनों की संख्या:</label>
-                    <input type="number" id="numDays${producerId}" value="1" min="1" placeholder="दिनों की संख्या" onchange="updateDaysInfo(${producerId})" />
+                    <input type="number" id="numDays${producerId}" value="1" min="1" placeholder="दिनों की संख्या" onchange="updateDaysInfo(${producerId})" 
+                           oninput="validateNumberInput(this)" />
                 </div>
                 <div class="days-info" id="daysInfo-${producerId}">
                     <span>चयनित दिन:</span>
@@ -576,12 +609,14 @@
             <div class="input-row hidden" id="dateRangeInput-${producerId}">
                 <div class="input-group calendar-container">
                     <label for="startDate${producerId}">शुरुआत तारीख:</label>
-                    <input type="date" id="startDate${producerId}" onchange="updateDateRangeInfo(${producerId})" />
+                    <input type="date" id="startDate${producerId}" onchange="updateDateRangeInfo(${producerId})" 
+                           min="${window.minDate}" max="${window.maxDate}" />
                     <i class="fas fa-calendar"></i>
                 </div>
                 <div class="input-group calendar-container">
                     <label for="endDate${producerId}">अंतिम तारीख:</label>
-                    <input type="date" id="endDate${producerId}" onchange="updateDateRangeInfo(${producerId})" />
+                    <input type="date" id="endDate${producerId}" onchange="updateDateRangeInfo(${producerId})" 
+                           min="${window.minDate}" max="${window.maxDate}" />
                     <i class="fas fa-calendar"></i>
                 </div>
                 <div class="days-info" id="dateRangeInfo-${producerId}">
@@ -595,6 +630,18 @@
         updateNumProducersInput();
         setDefaultDatesForProducer(producerId);
         updateDaysInfo(producerId);
+    }
+    
+    // Validate number inputs to prevent non-numeric values
+    function validateNumberInput(input) {
+        // Remove any non-numeric characters except decimal point
+        input.value = input.value.replace(/[^0-9.]/g, '');
+        
+        // Ensure only one decimal point
+        const decimalCount = (input.value.match(/\./g) || []).length;
+        if (decimalCount > 1) {
+            input.value = input.value.slice(0, -1);
+        }
     }
 
     // Apply default price to all producers
@@ -856,6 +903,15 @@
                     <div class="summary-label">कुल कीमत</div>
                 </div>
             </div>
+            
+            <div class="share-buttons">
+                <button class="success" onclick="shareViaWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> WhatsApp पर साझा करें
+                </button>
+                <button class="secondary" onclick="downloadAsText()">
+                    <i class="fas fa-download"></i> टेक्स्ट फ़ाइल डाउनलोड करें
+                </button>
+            </div>
         `;
 
         const resultDiv = document.getElementById('result');
@@ -864,6 +920,107 @@
         
         // Scroll to results
         resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Share results via WhatsApp
+    function shareViaWhatsApp() {
+        const resultText = generateResultText();
+        const encodedText = encodeURIComponent(resultText);
+        window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+    }
+    
+    // Download results as text file
+    function downloadAsText() {
+        const resultText = generateResultText();
+        const blob = new Blob([resultText], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'दूध_की_कीमत_विवरण.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    
+    // Generate text version of results for sharing
+    function generateResultText() {
+        let text = "दूध की कीमत कैलकुलेशन विवरण\n\n";
+        
+        const producerBlocks = document.querySelectorAll('.producerBlock');
+        for (let i = 0; i < producerBlocks.length; i++) {
+            const producerId = i + 1;
+            const producerName = document.getElementById(`producerName${producerId}`)?.value || `उत्पादक #${producerId}`;
+            const qty = parseFloat(document.getElementById(`quantity${producerId}`).value);
+            const price = parseFloat(document.getElementById(`price${producerId}`).value);
+            
+            let totalDays = 0;
+            let periodText = '';
+
+            if (producerDateTypes[producerId] === 'days') {
+                totalDays = parseInt(document.getElementById(`numDays${producerId}`).value);
+                periodText = `${totalDays} दिन`;
+            } else {
+                const startDateStr = document.getElementById(`startDate${producerId}`).value;
+                const endDateStr = document.getElementById(`endDate${producerId}`).value;
+                const startDate = new Date(startDateStr);
+                const endDate = new Date(endDateStr);
+                totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                periodText = `${formatDate(startDate)} से ${formatDate(endDate)}`;
+            }
+
+            const totalPrice = qty * price * totalDays;
+            
+            text += `उत्पादक: ${producerName}\n`;
+            text += `दूध: ${qty.toFixed(2)} लीटर\n`;
+            text += `कीमत: ₹${price.toFixed(2)} प्रति लीटर\n`;
+            text += `अवधि: ${periodText}\n`;
+            text += `कुल: ₹${totalPrice.toFixed(2)}\n\n`;
+        }
+        
+        // Add overall summary
+        const totalMilk = Array.from(document.querySelectorAll('.quantity')).reduce((sum, input, index) => {
+            const producerId = index + 1;
+            const qty = parseFloat(input.value);
+            let totalDays = 0;
+
+            if (producerDateTypes[producerId] === 'days') {
+                totalDays = parseInt(document.getElementById(`numDays${producerId}`).value);
+            } else {
+                const startDateStr = document.getElementById(`startDate${producerId}`).value;
+                const endDateStr = document.getElementById(`endDate${producerId}`).value;
+                const startDate = new Date(startDateStr);
+                const endDate = new Date(endDateStr);
+                totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            }
+            
+            return sum + (qty * totalDays);
+        }, 0);
+        
+        const overallTotal = Array.from(document.querySelectorAll('.price')).reduce((sum, input, index) => {
+            const producerId = index + 1;
+            const price = parseFloat(input.value);
+            const qty = parseFloat(document.getElementById(`quantity${producerId}`).value);
+            let totalDays = 0;
+
+            if (producerDateTypes[producerId] === 'days') {
+                totalDays = parseInt(document.getElementById(`numDays${producerId}`).value);
+            } else {
+                const startDateStr = document.getElementById(`startDate${producerId}`).value;
+                const endDateStr = document.getElementById(`endDate${producerId}`).value;
+                const startDate = new Date(startDateStr);
+                const endDate = new Date(endDateStr);
+                totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+            }
+            
+            return sum + (qty * price * totalDays);
+        }, 0);
+        
+        text += `कुल दूध: ${totalMilk.toFixed(2)} लीटर\n`;
+        text += `कुल कीमत: ₹${overallTotal.toFixed(2)}\n\n`;
+        text += `कैलकुलेशन दिनांक: ${new Date().toLocaleDateString('hi-IN')}`;
+        
+        return text;
     }
 
     // Format date to DD/MM/YYYY
