@@ -19,6 +19,8 @@
         --text-secondary: #546e7a;
         --border: #90caf9;
         --shadow: rgba(0, 0, 0, 0.1);
+        --success: #388e3c;
+        --warning: #f57c00;
     }
 
     * {
@@ -31,7 +33,7 @@
         font-family: 'Hind', sans-serif;
         background: var(--background);
         margin: 0;
-        padding: 20px;
+        padding: 15px;
         display: flex;
         justify-content: center;
         align-items: flex-start;
@@ -42,61 +44,61 @@
 
     .container {
         background: var(--surface);
-        max-width: 800px;
+        max-width: 900px;
         width: 100%;
-        padding: 30px;
-        box-shadow: 0 10px 25px var(--shadow);
-        border-radius: 15px;
-        margin: 20px 0;
+        padding: 25px;
+        box-shadow: 0 5px 15px var(--shadow);
+        border-radius: 12px;
+        margin: 15px 0;
     }
 
     h1 {
         text-align: center;
         color: var(--primary);
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         font-weight: 700;
-        font-size: 28px;
-        padding-bottom: 15px;
+        font-size: 24px;
+        padding-bottom: 12px;
         border-bottom: 2px solid var(--border);
     }
 
     .form-section {
-        margin-bottom: 25px;
-        padding: 20px;
+        margin-bottom: 20px;
+        padding: 15px;
         background: #f8fbff;
-        border-radius: 10px;
+        border-radius: 8px;
         border-left: 4px solid var(--primary);
     }
 
     .section-title {
-        font-size: 18px;
+        font-size: 16px;
         color: var(--primary);
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         font-weight: 700;
         display: flex;
         align-items: center;
     }
 
     .section-title i {
-        margin-right: 10px;
-        font-size: 20px;
+        margin-right: 8px;
+        font-size: 18px;
     }
 
     label {
         font-weight: 600;
-        margin-top: 15px;
+        margin-top: 12px;
         display: block;
-        font-size: 16px;
+        font-size: 15px;
         color: var(--text-primary);
     }
 
     select, input[type="number"], input[type="date"], input[type="text"] {
         width: 100%;
-        padding: 12px 15px;
-        margin-top: 8px;
-        border-radius: 8px;
+        padding: 10px 12px;
+        margin-top: 6px;
+        border-radius: 6px;
         border: 1.5px solid var(--border);
-        font-size: 16px;
+        font-size: 15px;
         transition: all 0.3s ease;
         background: white;
     }
@@ -111,11 +113,11 @@
         background-color: var(--primary);
         color: white;
         border: none;
-        padding: 14px 20px;
-        font-size: 16px;
-        margin-top: 20px;
+        padding: 12px 16px;
+        font-size: 15px;
+        margin-top: 15px;
         cursor: pointer;
-        border-radius: 8px;
+        border-radius: 6px;
         font-weight: 600;
         transition: all 0.3s ease;
         display: inline-flex;
@@ -124,7 +126,7 @@
     }
 
     button i {
-        margin-right: 8px;
+        margin-right: 6px;
     }
 
     button:hover {
@@ -148,21 +150,29 @@
     button.danger:hover {
         background-color: #b71c1c;
     }
+    
+    button.warning {
+        background-color: var(--warning);
+    }
+
+    button.warning:hover {
+        background-color: #e65100;
+    }
 
     .buttons {
         display: flex;
         justify-content: space-between;
-        gap: 15px;
-        margin-top: 25px;
+        gap: 12px;
+        margin-top: 20px;
         flex-wrap: wrap;
     }
 
     .producerBlock {
         background-color: var(--secondary-light);
-        border-radius: 10px;
+        border-radius: 8px;
         border: 1px solid #a5d6a7;
-        padding: 20px;
-        margin-top: 20px;
+        padding: 15px;
+        margin-top: 15px;
         position: relative;
         transition: all 0.3s ease;
     }
@@ -175,13 +185,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
 
     .producer-title {
         color: var(--secondary);
         font-weight: 700;
-        font-size: 18px;
+        font-size: 16px;
         margin: 0;
     }
 
@@ -189,41 +199,41 @@
         background: var(--error);
         color: white;
         border: none;
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        font-size: 18px;
+        font-size: 16px;
         padding: 0;
     }
 
     .input-row {
         display: flex;
-        gap: 15px;
-        margin-bottom: 15px;
+        gap: 12px;
+        margin-bottom: 12px;
         flex-wrap: wrap;
     }
 
     .input-group {
         flex: 1;
-        min-width: 200px;
+        min-width: 150px;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 30px;
-        font-size: 16px;
-        box-shadow: 0 2px 10px var(--shadow);
-        border-radius: 10px;
+        margin-top: 25px;
+        font-size: 15px;
+        box-shadow: 0 2px 8px var(--shadow);
+        border-radius: 8px;
         overflow: hidden;
     }
 
     th, td {
-        padding: 15px;
+        padding: 12px;
         border-bottom: 1px solid #e0e0e0;
         text-align: center;
     }
@@ -243,45 +253,48 @@
     }
 
     .resultSummary {
-        margin-top: 25px;
+        margin-top: 20px;
         font-weight: 700;
-        font-size: 20px;
+        font-size: 18px;
         color: var(--secondary);
         text-align: right;
-        padding: 15px;
+        padding: 12px;
         background: #e8f5e9;
-        border-radius: 10px;
+        border-radius: 8px;
     }
 
     .summary-card {
         display: flex;
         justify-content: space-between;
         background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px var(--shadow);
-        margin-top: 25px;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px var(--shadow);
+        margin-top: 20px;
+        flex-wrap: wrap;
     }
 
     .summary-item {
         text-align: center;
-        padding: 0 15px;
+        padding: 0 12px;
+        flex: 1;
+        min-width: 120px;
     }
 
     .summary-value {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 700;
         color: var(--primary);
     }
 
     .summary-label {
-        font-size: 14px;
+        font-size: 13px;
         color: var(--text-secondary);
     }
 
     @media (max-width: 768px) {
         .container {
-            padding: 20px;
+            padding: 15px;
         }
         
         .input-row {
@@ -300,11 +313,22 @@
         
         button {
             width: 100%;
+            margin-top: 10px;
         }
         
         .summary-card {
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
+        }
+        
+        .summary-item {
+            min-width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        table, th, td {
+            font-size: 14px;
+            padding: 8px;
         }
     }
 
@@ -314,22 +338,23 @@
 
     .date-type-selector {
         display: flex;
-        gap: 15px;
-        margin-top: 10px;
+        gap: 10px;
+        margin-top: 8px;
         flex-wrap: wrap;
     }
 
     .date-type-btn {
-        padding: 10px 15px;
+        padding: 8px 12px;
         border: 1.5px solid var(--border);
-        border-radius: 8px;
+        border-radius: 6px;
         background: white;
         cursor: pointer;
         font-weight: 600;
         transition: all 0.3s ease;
         flex: 1;
         text-align: center;
-        min-width: 120px;
+        min-width: 110px;
+        font-size: 14px;
     }
 
     .date-type-btn.active {
@@ -339,7 +364,80 @@
     }
 
     .icon {
-        margin-right: 8px;
+        margin-right: 6px;
+    }
+    
+    .days-info {
+        background-color: #e3f2fd;
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin-top: 8px;
+        font-weight: 600;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+    }
+    
+    .days-count {
+        font-size: 16px;
+        color: var(--success);
+    }
+    
+    .calendar-container {
+        position: relative;
+    }
+    
+    .calendar-container i {
+        position: absolute;
+        right: 12px;
+        top: 38px;
+        color: var(--primary);
+        font-size: 18px;
+    }
+    
+    .help-text {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-top: 4px;
+    }
+    
+    .default-price-section {
+        background-color: #fff8e1;
+        border-left: 4px solid var(--warning);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .apply-price-btn {
+        background-color: var(--warning);
+        margin-top: 12px;
+    }
+    
+    .apply-price-btn:hover {
+        background-color: #e65100;
+    }
+    
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background-color: var(--success);
+        color: white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s, transform 0.3s;
+    }
+    
+    .notification.show {
+        opacity: 1;
+        transform: translateY(0);
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -347,6 +445,22 @@
 <body>
     <div class="container">
         <h1><i class="fas fa-calculator icon"></i>दूध की कीमत कैलकुलेटर</h1>
+
+        <div class="default-price-section">
+            <div class="section-title"><i class="fas fa-tag"></i> डिफ़ॉल्ट दूध की कीमत</div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="defaultPrice">डिफ़ॉल्ट कीमत प्रति लीटर (₹):</label>
+                    <input type="number" id="defaultPrice" min="0" step="0.01" placeholder="कीमत प्रति लीटर" />
+                </div>
+            </div>
+            
+            <button type="button" class="warning apply-price-btn" onclick="applyDefaultPrice()">
+                <i class="fas fa-check-circle"></i> सभी उत्पादकों पर लागू करें
+            </button>
+            <div class="help-text">यह कीमत नए उत्पादकों के लिए स्वचालित रूप से लागू होगी</div>
+        </div>
 
         <div class="form-section">
             <div class="section-title"><i class="fas fa-users"></i> उत्पादक जानकारी</div>
@@ -366,14 +480,24 @@
         <div id="result" class="hidden"></div>
     </div>
 
+    <div id="notification" class="notification"></div>
+
 <script>
     let producersCount = 0;
     let producerDateTypes = {}; // Store date type for each producer
+    let defaultPrice = 0;
 
     // Initialize the form
     function init() {
         addProducer();
         setDefaultDates();
+        
+        // Load default price from localStorage if available
+        const savedPrice = localStorage.getItem('milkDefaultPrice');
+        if (savedPrice) {
+            document.getElementById('defaultPrice').value = savedPrice;
+            defaultPrice = parseFloat(savedPrice);
+        }
     }
 
     // Set default dates for all date inputs
@@ -424,7 +548,7 @@
                 
                 <div class="input-group">
                     <label for="price${producerId}">कीमत प्रति लीटर (₹):</label>
-                    <input type="number" id="price${producerId}" class="price" min="0" step="0.01" placeholder="दूध की कीमत" required />
+                    <input type="number" id="price${producerId}" class="price" min="0" step="0.01" placeholder="दूध की कीमत" value="${defaultPrice || ''}" required />
                 </div>
             </div>
             
@@ -441,25 +565,91 @@
             <div class="input-row" id="daysInput-${producerId}">
                 <div class="input-group">
                     <label for="numDays${producerId}">दिनों की संख्या:</label>
-                    <input type="number" id="numDays${producerId}" value="1" min="1" placeholder="दिनों की संख्या" />
+                    <input type="number" id="numDays${producerId}" value="1" min="1" placeholder="दिनों की संख्या" onchange="updateDaysInfo(${producerId})" />
+                </div>
+                <div class="days-info" id="daysInfo-${producerId}">
+                    <span>चयनित दिन:</span>
+                    <span class="days-count" id="daysCount-${producerId}">1 दिन</span>
                 </div>
             </div>
             
             <div class="input-row hidden" id="dateRangeInput-${producerId}">
-                <div class="input-group">
+                <div class="input-group calendar-container">
                     <label for="startDate${producerId}">शुरुआत तारीख:</label>
-                    <input type="date" id="startDate${producerId}" />
+                    <input type="date" id="startDate${producerId}" onchange="updateDateRangeInfo(${producerId})" />
+                    <i class="fas fa-calendar"></i>
                 </div>
-                <div class="input-group">
+                <div class="input-group calendar-container">
                     <label for="endDate${producerId}">अंतिम तारीख:</label>
-                    <input type="date" id="endDate${producerId}" />
+                    <input type="date" id="endDate${producerId}" onchange="updateDateRangeInfo(${producerId})" />
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <div class="days-info" id="dateRangeInfo-${producerId}">
+                    <span>चयनित दिन:</span>
+                    <span class="days-count" id="dateRangeDaysCount-${producerId}">0 दिन</span>
                 </div>
             </div>
         `;
 
         container.appendChild(div);
         updateNumProducersInput();
-        setDefaultDates();
+        setDefaultDatesForProducer(producerId);
+        updateDaysInfo(producerId);
+    }
+
+    // Apply default price to all producers
+    function applyDefaultPrice() {
+        const priceInput = document.getElementById('defaultPrice');
+        const price = parseFloat(priceInput.value);
+        
+        if (isNaN(price) || price < 0) {
+            showNotification('कृपया वैध कीमत दर्ज करें', 'error');
+            return;
+        }
+        
+        defaultPrice = price;
+        localStorage.setItem('milkDefaultPrice', price);
+        
+        // Apply to all existing producers
+        const producerBlocks = document.querySelectorAll('.producerBlock');
+        producerBlocks.forEach((block, index) => {
+            const producerId = index + 1;
+            const priceField = document.getElementById(`price${producerId}`);
+            if (priceField) {
+                priceField.value = price;
+            }
+        });
+        
+        showNotification('डिफ़ॉल्ट कीमत सभी उत्पादकों पर लागू की गई');
+    }
+
+    // Show notification
+    function showNotification(message, type = 'success') {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.style.backgroundColor = type === 'success' ? 'var(--success)' : 'var(--error)';
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+
+    // Set default dates for a producer
+    function setDefaultDatesForProducer(producerId) {
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        const formatDate = (date) => {
+            return date.toISOString().split('T')[0];
+        };
+        
+        document.getElementById(`startDate${producerId}`).value = formatDate(yesterday);
+        document.getElementById(`endDate${producerId}`).value = formatDate(today);
+        
+        // Update the date range info
+        updateDateRangeInfo(producerId);
     }
 
     // Remove a producer block
@@ -481,6 +671,24 @@
             const producerTitle = block.querySelector('.producer-title');
             if (producerTitle) {
                 producerTitle.innerHTML = `<i class="fas fa-user icon"></i>उत्पादक #${newId}`;
+            }
+            
+            // Update all IDs and event handlers in the block
+            const oldId = block.id.split('-')[1];
+            if (oldId != newId) {
+                block.id = `producer-${newId}`;
+                
+                // Update input IDs and event handlers
+                const inputs = block.querySelectorAll('input, button, div');
+                inputs.forEach(input => {
+                    if (input.id) input.id = input.id.replace(oldId, newId);
+                    if (input.onclick) input.onclick = new Function(input.onclick.toString().replace(oldId, newId));
+                    if (input.onchange) input.onchange = new Function(input.onchange.toString().replace(oldId, newId));
+                });
+                
+                // Update producerDateTypes
+                producerDateTypes[newId] = producerDateTypes[oldId];
+                delete producerDateTypes[oldId];
             }
         });
     }
@@ -504,6 +712,45 @@
             dateRangeBtn.classList.add('active');
             daysInput.classList.add('hidden');
             dateRangeInput.classList.remove('hidden');
+            // Update the day count for date range when switching to this type
+            updateDateRangeInfo(producerId);
+        }
+    }
+
+    // Update days info for simple days input
+    function updateDaysInfo(producerId) {
+        const numDays = document.getElementById(`numDays${producerId}`).value;
+        const daysCountElement = document.getElementById(`daysCount-${producerId}`);
+        
+        if (daysCountElement) {
+            daysCountElement.textContent = `${numDays} दिन`;
+        }
+    }
+
+    // Update date range info and calculate days
+    function updateDateRangeInfo(producerId) {
+        const startDateStr = document.getElementById(`startDate${producerId}`).value;
+        const endDateStr = document.getElementById(`endDate${producerId}`).value;
+        const daysCountElement = document.getElementById(`dateRangeDaysCount-${producerId}`);
+        
+        if (startDateStr && endDateStr) {
+            const startDate = new Date(startDateStr);
+            const endDate = new Date(endDateStr);
+            
+            if (startDate > endDate) {
+                daysCountElement.textContent = "तारीख गलत है";
+                daysCountElement.style.color = "var(--error)";
+                return;
+            }
+            
+            const timeDiff = endDate - startDate;
+            const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+            
+            daysCountElement.textContent = `${daysDiff} दिन`;
+            daysCountElement.style.color = "var(--success)";
+        } else {
+            daysCountElement.textContent = "तारीख चुनें";
+            daysCountElement.style.color = "var(--text-secondary)";
         }
     }
 
@@ -511,7 +758,7 @@
     function calculatePrices() {
         const producerBlocks = document.querySelectorAll('.producerBlock');
         if (producerBlocks.length === 0) {
-            alert('कृपया कम से कम एक उत्पादक जोड़ें।');
+            showNotification('कृपया कम से कम एक उत्पादक जोड़ें', 'error');
             return;
         }
 
@@ -537,7 +784,7 @@
             const price = parseFloat(document.getElementById(`price${producerId}`).value);
 
             if (isNaN(qty) || qty < 0 || isNaN(price) || price < 0) {
-                alert(`${producerName} के लिए वैध मात्रा और कीमत दर्ज करें।`);
+                showNotification(`${producerName} के लिए वैध मात्रा और कीमत दर्ज करें`, 'error');
                 return;
             }
 
@@ -547,7 +794,7 @@
             if (producerDateTypes[producerId] === 'days') {
                 totalDays = parseInt(document.getElementById(`numDays${producerId}`).value);
                 if (isNaN(totalDays) || totalDays < 1) {
-                    alert(`${producerName} के लिए वैध दिनों की संख्या दर्ज करें।`);
+                    showNotification(`${producerName} के लिए वैध दिनों की संख्या दर्ज करें`, 'error');
                     return;
                 }
                 periodText = `${totalDays} दिन`;
@@ -556,7 +803,7 @@
                 const endDateStr = document.getElementById(`endDate${producerId}`).value;
                 
                 if (!startDateStr || !endDateStr) {
-                    alert(`${producerName} के लिए शुरुआत और अंत की तारीख चुनें।`);
+                    showNotification(`${producerName} के लिए शुरुआत और अंत की तारीख चुनें`, 'error');
                     return;
                 }
                 
@@ -564,7 +811,7 @@
                 const endDate = new Date(endDateStr);
                 
                 if (startDate > endDate) {
-                    alert(`${producerName} के लिए शुरुआत की तारीख अंत की तारीख से बाद नहीं हो सकती।`);
+                    showNotification(`${producerName} के लिए शुरुआत की तारीख अंत की तारीख से बाद नहीं हो सकती`, 'error');
                     return;
                 }
                 
@@ -614,6 +861,9 @@
         const resultDiv = document.getElementById('result');
         resultDiv.innerHTML = resultHTML;
         resultDiv.classList.remove('hidden');
+        
+        // Scroll to results
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
     }
 
     // Format date to DD/MM/YYYY
