@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>दूध की कीमत कैलकुलेटर</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&display=swap');
+
+    :root {
+        --primary: #1565c0;
+        --primary-dark: #0d47a1;
+        --secondary: #2e7d32;
+        --secondary-light: #e8f5e9;
+        --background: #f5f9ff;
+        --surface: #ffffff;
+        --error: #d32f2f;
+        --text-primary: #263238;
+        --text-secondary: #546e7a;
+        --border: #90caf9;
+        --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Hind', sans-serif;
+        background: var(--background);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        color: var(--text-primary);
+        line-height: 1.6;
+    }
+
+    .container {
+        background: var(--surface);
+        max-width: 800px;
+        width: 100%;
+        padding: 30px;
+        box-shadow: 0 10px 25px var(--shadow);
+        border-radius: 15px;
+        margin: 20px 0;
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--primary);
+        margin-bottom: 25px;
+        font-weight: 700;
+        font-size: 28px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--border);
+    }
+
+    .form-section {
+        margin-bottom: 25px;
+        padding: 20px;
+        background: #f8fbff;
+        border-radius: 10px;
+        border-left: 4px solid var(--primary);
+    }
+
+    .section-title {
+        font-size: 18px;
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+    }
+
+    .section-title i {
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    label {
+        font-weight: 600;
+        margin-top: 15px;
+        display: block;
+        font-size: 16px;
+        color: var(--text-primary);
+    }
+
+    select, input[type="number"], input[type="date"], input[type="text"] {
+        width: 100%;
+        padding: 12px 15px;
+        margin-top: 8px;
+        border-radius: 8px;
+        border: 1.5px solid var(--border);
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    select:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="text"]:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.2);
+    }
+
+    button {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 14px 20px;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button i {
+        margin-right: 8px;
+    }
+
+    button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    button.secondary {
+        background-color: var(--secondary);
+    }
+
+    button.secondary:hover {
+        background-color: #1b5e20;
+    }
+
+    button.danger {
+        background-color: var(--error);
+    }
+
+    button.danger:hover {
+        background-color: #b71c1c;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        margin-top: 25px;
+        flex-wrap: wrap;
+    }
+
+    .producerBlock {
+        background-color: var(--secondary-light);
+        border-radius: 10px;
+        border: 1px solid #a5d6a7;
+        padding: 20px;
+        margin-top: 20px;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .producerBlock:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .producer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .producer-title {
+        color: var(--secondary);
+        font-weight: 700;
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .remove-producer {
+        background: var(--error);
+        color: white;
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 0;
+    }
+
+    .input-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+
+    .input-group {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        font-size: 16px;
+        box-shadow: 0 2px 10px var(--shadow);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 15px;
+        border-bottom: 1px solid #e0e0e0;
+        text-align: center;
+    }
+
+    th {
+        background-color: var(--primary);
+        color: white;
+        font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    tr:hover {
+        background-color: #e3f2fd;
+    }
+
+    .resultSummary {
+        margin-top: 25px;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--secondary);
+        text-align: right;
+        padding: 15px;
+        background: #e8f5e9;
+        border-radius: 10px;
+    }
+
+    .summary-card {
+        display: flex;
+        justify-content: space-between;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px var(--shadow);
+        margin-top: 25px;
+    }
+
+    .summary-item {
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .summary-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .summary-label {
+        font-size: 14px;
+        color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+        
+        .input-row {
+            flex-direction: column;
+            gap: 0;
+        }
+        
+        .input-group {
+            width: 100%;
+            min-width: 100%;
+        }
+        
+        .buttons {
+            flex-direction: column;
+        }
+        
+        button {
+            width: 100%;
+        }
+        
+        .summary-card {
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .date-type-selector {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .date-type-btn {
+        padding: 10px 15px;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        flex: 1;
+        text-align: center;
+        min-width: 120px;
+    }
+
+    .date-type-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    .icon {
+        margin-right: 8px;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-calculator icon"></i>दूध की कीमत कैलकुलेटर</h1>
+
+        <div class="form-section">
+            <div class="section-title"><i class="fas fa-users"></i> उत्पादक जानकारी</div>
+            
+            <label for="numProducers">उत्पादक की संख्या (लोग):</label>
+            <input type="number" id="numProducers" name="numProducers" min="1" value="1" placeholder="उत्पादक की संख्या" onchange="adjustProducerBlocks()" />
+
+            <div id="producersContainer"></div>
+
+            <div class="buttons">
+                <button type="button" onclick="addProducer()"><i class="fas fa-plus"></i> उत्पादक जोड़ें</button>
+                <button type="button" class="secondary" onclick="calculatePrices()"><i class="fas fa-calculator"></i> कीमत निकालें</button>
+                <button type="button" class="danger" onclick="resetForm()"><i class="fas fa-redo"></i> रीसेट करें</button>
+            </div>
+        </div>
+
+        <div id="result" class="hidden"></div>
+    </div>
+
+<script>
+    let producersCount = 0;
+    let producerDateTypes = {}; // Store date type for each producer
+
+    // Initialize the form
+    function init() {
+        addProducer();
+        setDefaultDates();
+    }
+
+    // Set default dates for all date inputs
+    function setDefaultDates() {
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        const formatDate = (date) => {
+            return date.toISOString().split('T')[0];
+        };
+        
+        document.getElementById('startDate')?.setAttribute('value', formatDate(yesterday));
+        document.getElementById('endDate')?.setAttribute('value', formatDate(today));
+    }
+
+    // Add a new producer block
+    function addProducer() {
+        producersCount++;
+        const container = document.getElementById('producersContainer');
+        const producerId = producersCount;
+
+        // Initialize date type for this producer
+        producerDateTypes[producerId] = 'days';
+
+        const div = document.createElement('div');
+        div.className = 'producerBlock';
+        div.id = `producer-${producerId}`;
+
+        div.innerHTML = `
+            <div class="producer-header">
+                <h3 class="producer-title"><i class="fas fa-user icon"></i>उत्पादक #${producerId}</h3>
+                <button class="remove-producer" onclick="removeProducer(${producerId})"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="producerName${producerId}">उत्पादक का नाम (वैकल्पिक):</label>
+                    <input type="text" id="producerName${producerId}" placeholder="उत्पादक का नाम" />
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="quantity${producerId}">दूध की मात्रा (लीटर):</label>
+                    <input type="number" id="quantity${producerId}" class="quantity" min="0" step="0.01" placeholder="दूध की मात्रा" required />
+                </div>
+                
+                <div class="input-group">
+                    <label for="price${producerId}">कीमत प्रति लीटर (₹):</label>
+                    <input type="number" id="price${producerId}" class="price" min="0" step="0.01" placeholder="दूध की कीमत" required />
+                </div>
+            </div>
+            
+            <label>समय अवधि चुनें:</label>
+            <div class="date-type-selector">
+                <div class="date-type-btn active" id="days-btn-${producerId}" onclick="setDateType(${producerId}, 'days')">
+                    <i class="fas fa-calendar-day icon"></i>दिनों का चयन
+                </div>
+                <div class="date-type-btn" id="dateRange-btn-${producerId}" onclick="setDateType(${producerId}, 'dateRange')">
+                    <i class="fas fa-calendar-alt icon"></i>तारीख से तारीख
+                </div>
+            </div>
+            
+            <div class="input-row" id="daysInput-${producerId}">
+                <div class="input-group">
+                    <label for="numDays${producerId}">दिनों की संख्या:</label>
+                    <input type="number" id="numDays${producerId}" value="1" min="1" placeholder="दिनों की संख्या" />
+                </div>
+            </div>
+            
+            <div class="input-row hidden" id="dateRangeInput-${producerId}">
+                <div class="input-group">
+                    <label for="startDate${producerId}">शुरुआत तारीख:</label>
+                    <input type="date" id="startDate${producerId}" />
+                </div>
+                <div class="input-group">
+                    <label for="endDate${producerId}">अंतिम तारीख:</label>
+                    <input type="date" id="endDate${producerId}" />
+                </div>
+            </div>
+        `;
+
+        container.appendChild(div);
+        updateNumProducersInput();
+        setDefaultDates();
+    }
+
+    // Remove a producer block
+    function removeProducer(producerId) {
+        const producerBlock = document.getElementById(`producer-${producerId}`);
+        if (producerBlock) {
+            producerBlock.remove();
+            delete producerDateTypes[producerId];
+            updateNumProducersInput();
+            renumberProducers();
+        }
+    }
+
+    // Renumber producers after removal
+    function renumberProducers() {
+        const producerBlocks = document.querySelectorAll('.producerBlock');
+        producerBlocks.forEach((block, index) => {
+            const newId = index + 1;
+            const producerTitle = block.querySelector('.producer-title');
+            if (producerTitle) {
+                producerTitle.innerHTML = `<i class="fas fa-user icon"></i>उत्पादक #${newId}`;
+            }
+        });
+    }
+
+    // Set date type for a producer
+    function setDateType(producerId, type) {
+        producerDateTypes[producerId] = type;
+        
+        const daysBtn = document.getElementById(`days-btn-${producerId}`);
+        const dateRangeBtn = document.getElementById(`dateRange-btn-${producerId}`);
+        const daysInput = document.getElementById(`daysInput-${producerId}`);
+        const dateRangeInput = document.getElementById(`dateRangeInput-${producerId}`);
+        
+        if (type === 'days') {
+            daysBtn.classList.add('active');
+            dateRangeBtn.classList.remove('active');
+            daysInput.classList.remove('hidden');
+            dateRangeInput.classList.add('hidden');
+        } else {
+            daysBtn.classList.remove('active');
+            dateRangeBtn.classList.add('active');
+            daysInput.classList.add('hidden');
+            dateRangeInput.classList.remove('hidden');
+        }
+    }
+
+    // Calculate prices for all producers
+    function calculatePrices() {
+        const producerBlocks = document.querySelectorAll('.producerBlock');
+        if (producerBlocks.length === 0) {
+            alert('कृपया कम से कम एक उत्पादक जोड़ें।');
+            return;
+        }
+
+        let overallTotal = 0;
+        let totalMilk = 0;
+        let resultHTML = `
+            <div class="form-section">
+                <div class="section-title"><i class="fas fa-list-alt"></i> परिणाम सारांश</div>
+                <table>
+                    <tr>
+                        <th>उत्पादक</th>
+                        <th>दूध (लीटर)</th>
+                        <th>कीमत/लीटर (₹)</th>
+                        <th>अवधि</th>
+                        <th>कुल कीमत (₹)</th>
+                    </tr>
+        `;
+
+        for (let i = 0; i < producerBlocks.length; i++) {
+            const producerId = i + 1;
+            const producerName = document.getElementById(`producerName${producerId}`)?.value || `उत्पादक #${producerId}`;
+            const qty = parseFloat(document.getElementById(`quantity${producerId}`).value);
+            const price = parseFloat(document.getElementById(`price${producerId}`).value);
+
+            if (isNaN(qty) || qty < 0 || isNaN(price) || price < 0) {
+                alert(`${producerName} के लिए वैध मात्रा और कीमत दर्ज करें।`);
+                return;
+            }
+
+            let totalDays = 0;
+            let periodText = '';
+
+            if (producerDateTypes[producerId] === 'days') {
+                totalDays = parseInt(document.getElementById(`numDays${producerId}`).value);
+                if (isNaN(totalDays) || totalDays < 1) {
+                    alert(`${producerName} के लिए वैध दिनों की संख्या दर्ज करें।`);
+                    return;
+                }
+                periodText = `${totalDays} दिन`;
+            } else {
+                const startDateStr = document.getElementById(`startDate${producerId}`).value;
+                const endDateStr = document.getElementById(`endDate${producerId}`).value;
+                
+                if (!startDateStr || !endDateStr) {
+                    alert(`${producerName} के लिए शुरुआत और अंत की तारीख चुनें।`);
+                    return;
+                }
+                
+                const startDate = new Date(startDateStr);
+                const endDate = new Date(endDateStr);
+                
+                if (startDate > endDate) {
+                    alert(`${producerName} के लिए शुरुआत की तारीख अंत की तारीख से बाद नहीं हो सकती।`);
+                    return;
+                }
+                
+                totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                periodText = `${formatDate(startDate)} से ${formatDate(endDate)}`;
+            }
+
+            const totalPrice = qty * price * totalDays;
+            overallTotal += totalPrice;
+            totalMilk += qty * totalDays;
+
+            resultHTML += `
+                <tr>
+                    <td>${producerName}</td>
+                    <td>${qty.toFixed(2)}</td>
+                    <td>${price.toFixed(2)}</td>
+                    <td>${periodText}</td>
+                    <td>${totalPrice.toFixed(2)}</td>
+                </tr>
+            `;
+        }
+
+        resultHTML += `
+                </table>
+                <p class="resultSummary">
+                    कुल दूध: ${totalMilk.toFixed(2)} लीटर<br>
+                    कुल कीमत: ₹${overallTotal.toFixed(2)}
+                </p>
+            </div>
+            
+            <div class="summary-card">
+                <div class="summary-item">
+                    <div class="summary-value">${producerBlocks.length}</div>
+                    <div class="summary-label">उत्पादक</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value">${totalMilk.toFixed(2)}</div>
+                    <div class="summary-label">लिटर दूध</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value">₹${overallTotal.toFixed(2)}</div>
+                    <div class="summary-label">कुल कीमत</div>
+                </div>
+            </div>
+        `;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = resultHTML;
+        resultDiv.classList.remove('hidden');
+    }
+
+    // Format date to DD/MM/YYYY
+    function formatDate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    // Adjust producer blocks based on input
+    function adjustProducerBlocks() {
+        const num = parseInt(document.getElementById('numProducers').value);
+        if (isNaN(num) || num < 1) return;
+
+        const container = document.getElementById('producersContainer');
+        const currentCount = container.children.length;
+        
+        if (num > currentCount) {
+            for (let i = currentCount; i < num; i++) {
+                addProducer();
+            }
+        } else if (num < currentCount) {
+            for (let i = currentCount; i > num; i--) {
+                removeProducer(i);
+            }
+        }
+    }
+
+    // Update numProducers input
+    function updateNumProducersInput() {
+        const container = document.getElementById('producersContainer');
+        document.getElementById('numProducers').value = container.children.length;
+    }
+
+    // Reset the form
+    function resetForm() {
+        if (confirm('क्या आप वाकई फॉर्म रीसेट करना चाहते हैं? सभी डेटा हट जाएगा।')) {
+            const container = document.getElementById('producersContainer');
+            container.innerHTML = '';
+            producersCount = 0;
+            producerDateTypes = {};
+            document.getElementById('result').classList.add('hidden');
+            document.getElementById('numProducers').value = 1;
+            addProducer();
+        }
+    }
+
+    // Initialize the form when page loads
+    window.onload = init;
+</script>
+</body>
+</html>
